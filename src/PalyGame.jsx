@@ -17,16 +17,17 @@ class PalyGame extends Component {
   }
 
   submitWord = () => {
-      if (this.state.word === "palyndrome") {
+     // if (this.state.word === "palyndrome") {
         $.post(postWordUrl, {
             word: this.state.word
         }); 
-      }
+     // }
   }
 
   typingWord = (event) => {
-      this.setState({word: this.event.target.value})
+      this.setState({word: event.target.value})
   }
+
 
 
   render() {

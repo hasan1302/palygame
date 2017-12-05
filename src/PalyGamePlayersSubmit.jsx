@@ -59,7 +59,7 @@ class PalyGamePlayersSubmit extends Component {
 
     render() {
         if (localStorage.getItem("gameStarted")) {
-            return( <PalyGame playerOne={this.state.playerOneName} playerTwo={this.state.playerTwoName}/> );
+            return( <PalyGame /> );
         };
         return ( (!localStorage.getItem("playerOneName")) ? this.showPlayerOneSubmitMenu() : this.showPlayerTwoSubmitMenu() );
   }
