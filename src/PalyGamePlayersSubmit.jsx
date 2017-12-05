@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import logo from './logo.svg';
 //import './App.css';
+import PalyGame from './PalyGame';
 
 const submitPlayerStyle = {
   color: 'blue',
@@ -20,7 +21,7 @@ class PalyGamePlayersSubmit extends Component {
 
     submitPlayerTwo = () => {
         localStorage.setItem("playerTwoName", this.state.playerTwoName);
-        localStorage.setItem("gameStarted", this.state.playerTwoName);
+        localStorage.setItem("gameStarted", "true");
         this.setState({playerTwoSubmited: true, gameStarted: true})
     }
 
@@ -49,7 +50,7 @@ class PalyGamePlayersSubmit extends Component {
             <div style={submitPlayerStyle}>
                 <h1> Player Two </h1>
                 <form onSubmit={this.submitPlayerTwo} >
-                    <input onChange={this.typingNamePlayerTwo} type="text" placeholder="Player Two Name" name="playerTwoeName" required></input>
+                    <input onChange={this.typingNamePlayerTwo} type="text" placeholder="Player Two Name" name="playerTwoName" required></input>
                     <input type="submit" value="Play" />
                 </form>
             </div>
@@ -57,6 +58,9 @@ class PalyGamePlayersSubmit extends Component {
       };
 
     render() {
+        if (localStorage.getItem("gameStarted")) {
+            return( <PalyGame playerOne={this.state.playerOneName} playerTwo={this.state.playerTwoName}/> );
+        };
         return ( (!localStorage.getItem("playerOneName")) ? this.showPlayerOneSubmitMenu() : this.showPlayerTwoSubmitMenu() );
   }
 

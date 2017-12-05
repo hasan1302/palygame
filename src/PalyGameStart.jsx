@@ -9,7 +9,7 @@ class PalyGameStart extends Component {
   };
 
   startGame = () => {
-    localStorage.setItem("gameStarted", "true");
+    localStorage.setItem("gameSubmitted", "true");
     this.setState({gameStarted: true});
   };
 
@@ -23,7 +23,7 @@ class PalyGameStart extends Component {
   };
 
   render() {
-    return ( (localStorage.getItem("gameStarted")) ? (<PalyGamePlayersSubmit />) : (this.showStartGameMenu()) );
+    return ( (localStorage.getItem("gameSubmitted")) ? (<PalyGamePlayersSubmit />) : (this.showStartGameMenu()) );
   };
 }
 
