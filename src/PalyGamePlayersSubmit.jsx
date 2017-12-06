@@ -22,6 +22,7 @@ class PalyGamePlayersSubmit extends Component {
     submitPlayerTwo = () => {
         localStorage.setItem("playerTwoName", this.state.playerTwoName);
         localStorage.setItem("gameStarted", "true");
+        localStorage.setItem("playerTurn", "1");
         this.setState({playerTwoSubmited: true, gameStarted: true})
     }
 
