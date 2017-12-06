@@ -59,9 +59,9 @@ class PalyGame extends Component {
         $.post(postWordUrl, {word: this.state.word} ); 
 
         ///////////////*^^((((((((((((^(794947974979794779447794479974947479479479479794479)))))))))))))
-        if inMongoBase then {v   <-------
-        this.playerScored();
-        }
+       // if inMongoBase then {v   <-------
+        //this.playerScored();
+       // }
 /////////////////////////7447144582895599353469004707070047407470470704704470470470            TUT OSTAMOVILSA             !!!!!!!!!!!!!
      } else {alert("Your word is not a palyndrome!")}
   }
