@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PalyGamePlayersSubmit from './PalyGamePlayersSubmit';
 
 
-class PalyGameStart extends Component {
+class PalyGameStart2 extends Component {
   constructor(props) {
     super(props);
     this.state = {gameStarted: false};
   };
 
   startGame = () => {
-    this.setState({gameSubmitted: true})
+    sessionStorage.setItem("gameSubmitted", "true");
     this.setState({gameStarted: true});
   };
 
@@ -23,8 +23,8 @@ class PalyGameStart extends Component {
   };
 
   render() {
-    return ( this.state.gameSubmitted ? <PalyGamePlayersSubmit /> : this.showStartGameMenu() );
+    return ( (sessionStorage.getItem("gameSubmitted")) ? (<PalyGamePlayersSubmit />) : (this.showStartGameMenu()) );
   };
 }
 
-export default PalyGameStart;
+export default PalyGameStart2;

@@ -20,13 +20,6 @@ MongoClient.connect(dbUrl,(err, database) => {
 
 app.use(bodyParser.urlencoded({extended: true}))
 
-app.post('/postword2', (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  db.collection('words').save(req.body, (err, result) => {
-    if (err) return console.log(err);
-    console.log(req.body.word + ' word posted to database: ' );
-  })
-})
 
 app.post('/postword', (req, res) => {
     db.collection('words').find({word: req.body.word}).toArray((err, result) => {
