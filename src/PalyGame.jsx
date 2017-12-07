@@ -108,7 +108,6 @@ class PalyGame extends Component {
   render() {
     return ( 
         <div>
-            {this.state.currentCount}
             {this.showWordsPlayerOne()}
             {this.showWordsPlayerTwo()}
             <h1>{this.state.playerOne} Score : {this.state.playerOneScore} - {this.state.playerTwo} Score: {this.state.playerTwoScore}</h1>  
