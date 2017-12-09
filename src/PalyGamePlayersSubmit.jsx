@@ -4,67 +4,39 @@ class PalyGamePlayersSubmit extends Component {
     
         constructor(props) {
             super(props);
-            this.state = {playerOneName: "", playerOneSubmited: false, playerTwoName: "", playerTwoSubmited: false, gameStarted: false };
+            this.state = {playerOneName: "", playerOneSubmited: false, playerTwoName: "", playerTwoSubmited: false, gameStarted: false, name: "" };
         }
     
-        submitPlayerOne = (event) => {
-            this.setState({
-                playerOneName: this.state.playerOneName, 
-                playerTurn: this.state.playerOneName,
-                playerOneScore: 0
-            });
-            this.setState({playerOneSubmited: true})
-           // event.target.value="";
+        submitPlayer = (event) => {
+            if (!this.state.playerOneSubmited) {
+                this.setState({playerOneName: this.state.name, playerOneScore: 0, playerOneSubmited: true, name: ""});
+            } else {
+                this.setState({playerTwoName: this.state.name, playerTwoScore: 0, playerTwoSubmited: true, name: "", gameStarted: true});
+            }
+
             event.preventDefault();
         }
-    
-        submitPlayerTwo = (event) => {
-            this.setState({
-                playerTwoName: this.state.playerTwoName, 
-                playerTwoScore: 0
-            });
-            this.setState({playerTwoSubmited: true, gameStarted: true})
-           // event.target.value="";
-            event.preventDefault();
+
+        typingPlayerName = (event) => {
+            this.setState({name: event.target.value})
         }
-    
-        typingNamePlayerOne = (event) => {
-            this.setState({playerOneName: event.target.value})
-        }
-    
-        typingNamePlayerTwo = (event) => {
-            this.setState({playerTwoName: event.target.value})
-        }
-    
-        showPlayerOneSubmitMenu = () => {
-            return (        
-                <div>
-                    <h1> Player one </h1>
-                    <form onSubmit={this.submitPlayerOne} >
-                        <input onChange={this.typingNamePlayerOne} type="text" placeholder="Player One Name" name="playerOneName" required></input>
-                        <input type="submit" value="Play" />
-                    </form>
-                </div>
-                );
-          };
-    
-          showPlayerTwoSubmitMenu = () => {
-            return (        
-                <div>
-                    <h1> Player Two </h1>
-                    <form onSubmit={this.submitPlayerTwo} >
-                        <input onChange={this.typingNamePlayerTwo} type="text" placeholder="Player Two Name" name="playerTwoName" required></input>
-                        <input type="submit" value="Play" />
-                    </form>
-                </div>
-                );
-          };
+  
     
         render() {
             if (this.state.gameStarted) {
                 return( <PalyGame playerOne={this.state.playerOneName} playerTwo={this.state.playerTwoName}/> );
             };
-            return ( (!this.state.playerOneSubmited) ? this.showPlayerOneSubmitMenu() : this.showPlayerTwoSubmitMenu() );
+
+            return (        
+                <div>
+                    <h1> {this.state.playerOneSubmited ? "Player One" : "Player Two"}</h1>
+                    <form onSubmit={this.submitPlayer} >
+                        <input onChange={this.typingPlayerName} type="text" placeholder="Player Name" name="playerName" value={this.state.name} required></input>
+                        <input type="submit" value="Play" />
+                    </form>
+                </div>
+                );
+
       }
     
     
