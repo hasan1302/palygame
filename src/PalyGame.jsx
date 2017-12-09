@@ -113,7 +113,7 @@ class PalyGame extends Component {
   }
 
   typingWord = (event) => {
-    if (!isNaN(event.target.value)) {
+    if (/\d/.test(event.target.value)) {
         alert("Your cant type numbers!");
     } else {
       this.setState({word: event.target.value})
