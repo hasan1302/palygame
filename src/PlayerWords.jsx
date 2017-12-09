@@ -10,14 +10,18 @@ class PlayerWords extends Component {
     }
 
     render() {
-        if (this.state.playerWords.length > 0) {
-            return (   
-                    <div>
-                        <h1>Player {this.state.playerName} words</h1>
-                        {this.state.playerWords.map((task, i)=>  
-                        <h1 key={i}>{this.state.playerWords[i]}</h1>)}
-                    </div>);
-        } else {return null}
+        if (this.state.playerWords.length < 1) {
+            return null;
+        };
+
+        return (   
+                <div>
+                    <h1>Player {this.state.playerName} words</h1>
+                    {this.state.playerWords.map((task, i)=>  
+                    <h1 key={i}>{this.state.playerWords[i]}</h1>)}
+                </div>
+                );
+        
     }
 
 

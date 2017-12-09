@@ -51,14 +51,7 @@ class PalyGame extends Component {
   }
 
   restartGame = () => {
-      this.setState({
-          playerOneScore: 0,
-          playerTwoScore: 0,
-          playerOneWords: [],
-          playerTwoWords: [],
-          words: [""],
-          gameFinished: false,
-          playerTurn: this.state.winner,
+      this.setState({playerOneScore: 0,playerTwoScore: 0,playerOneWords: [],playerTwoWords: [],words: [""],gameFinished: false,playerTurn: this.state.winner,
           timer: secondsPerTurn,
           timerEndGame: secondsPerGame
       })
@@ -75,7 +68,12 @@ class PalyGame extends Component {
           this.setState({
               timer: secondsPerTurn,
               playerTurn: (this.state.playerTurn !== this.state.playerOne ? this.state.playerOne : this.state.playerTwo)
-        });
+            });
+            if (this.state.playerTurn === this.state.playerOne) {
+                this.setState({playerOneScore: ++this.state.playerOneScore})
+            } else {
+                this.setState({playerTwoScore: ++this.state.playerTwoScore})
+            }
          
       }
   }
@@ -141,32 +139,27 @@ class PalyGame extends Component {
   showGame = () => {
       return  (
              <div>
-                 <PlayerWords playerName={this.state.playerOne} playerWords={this.state.playerOneWords}/>
-                 <PlayerWords playerName={this.state.playerTwo} playerWords={this.state.playerTwoWords}/>
+                <PlayerWords playerName={this.state.playerOne} playerWords={this.state.playerOneWords}/>
+                <PlayerWords playerName={this.state.playerTwo} playerWords={this.state.playerTwoWords}/>
 
-                    <h1>{this.state.playerOne} Score : {this.state.playerOneScore} - {this.state.playerTwo} Score: {this.state.playerTwoScore}</h1>  
-                    <h1>Players Turn:{this.state.playerTurn}</h1>
-                        <form onSubmit={this.submitWord} >
-                            <input onChange={this.typingWord} type="text" placeholder="Any Palyndrome Word" name="palyndrome text" value={this.state.word} required></input>
-                            <input type="submit" value="SEND" />
-                        </form>
-                     <h1>Timer: {this.state.timer}</h1>
-                     <h1 style={styleRed}>Timer till the game ends : {this.state.timerEndGame} </h1>
+                <h1>{this.state.playerOne} Score : {this.state.playerOneScore} - {this.state.playerTwo} Score: {this.state.playerTwoScore}</h1>  
+                   
+                <h1>Players Turn:{this.state.playerTurn}</h1>
+
+                <form onSubmit={this.submitWord} >
+                    <input onChange={this.typingWord} type="text" placeholder="Any Palyndrome Word" name="palyndrome text" value={this.state.word} required></input>
+                    <input type="submit" value="SEND" />
+                </form>
+
+                <h1>Timer: {this.state.timer}</h1>
+                <h1 style={styleRed}>Timer till the game ends : {this.state.timerEndGame} </h1>
             </div>
             );
   }
 
-  showRestartMenu = () => {
-      return (
-        <div>
-            <button> Restart Game </button>
-        </div>
-      );
-  }
 
   render() {
     return ( (this.state.gameFinished === false) ?this.showGame() :this.showEndGame() )
-
   };
 }
 
