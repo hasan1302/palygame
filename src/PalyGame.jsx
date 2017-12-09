@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+
 const secondsPerTurn = 30;
 const secondsPerGame = 60;
+
 function palindrome(str) {
     if(str.replace(/[^\w\s]|_/g, "").toLowerCase() === str.replace(/[^\w\s]|_/g, "").toLowerCase().split("").reverse().join("")){
       return true;
@@ -60,19 +62,8 @@ class PalyGame extends Component {
           timerEndGame: secondsPerGame
       })
   }
-  showEndGame = () => {
-      return (
-        <div>
-            <h1>The winner is : 
-            {this.state.winner} 
-            with scores - 
-            {this.state.playerOne}:{this.state.playerOneScore}, 
-            {this.state.playerTwo}:{this.state.playerTwoScore}  
-            </h1>
-            <button onClick={this.restartGame}> Restart </button>
-        </div>
-      );
-  }
+
+ 
 
   timer = () => {
       this.setState({timer: this.state.timer-1, timerEndGame: this.state.timerEndGame-1})
@@ -155,6 +146,19 @@ class PalyGame extends Component {
     }
   }
 
+  showEndGame = () => {
+    return (
+      <div>
+          <h1>The winner is : 
+          {this.state.winner} 
+          with scores - 
+          {this.state.playerOne}:{this.state.playerOneScore}, 
+          {this.state.playerTwo}:{this.state.playerTwoScore}  
+          </h1>
+          <button onClick={this.restartGame}> Restart </button>
+      </div>
+    );
+}
 
   showGame = () => {
       return  (
