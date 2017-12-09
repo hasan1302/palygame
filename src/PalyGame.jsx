@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+const secondsPerTurn = 30;
+const secondsPerGame = 60;
 function palindrome(str) {
     if(str.replace(/[^\w\s]|_/g, "").toLowerCase() === str.replace(/[^\w\s]|_/g, "").toLowerCase().split("").reverse().join("")){
       return true;
@@ -7,7 +8,9 @@ function palindrome(str) {
       return false;
     }
   }
-
+  const styleRed = {
+    color: 'red',
+  };
 
 class PalyGame extends Component {
   constructor(props) {
@@ -24,20 +27,64 @@ class PalyGame extends Component {
         playerTurn: this.props.playerOne,
         word: "",
         words: [""],
-        timer: 30,
+        timer: secondsPerTurn,
+        timerEndGame: secondsPerGame,
+        winner: "",
         gameFinished: false
     }
   };
 
   componentDidMount() {
       const intervalId = setInterval(this.timer, 1000);
+      const intervalIdEndGame = intervalId;
+  }
+
+  gameOver = () => {
+      this.setState({
+        winner: (this.state.playerOneScore > this.state.playerTwoScore) ? this.state.playerOne : this.state.playerTwo,
+        gameFinished: true,
+    });
+    alert("winner is  : " + this.state.winner);
+  }
+
+  restartGame = () => {
+      this.setState({
+          playerOneScore: 0,
+          playerTwoScore: 0,
+          playerOneWords: [],
+          playerTwoWords: [],
+          words: [""],
+          gameFinished: false,
+          playerTurn: this.state.winner,
+          timer: secondsPerTurn,
+          timerEndGame: secondsPerGame
+      })
+  }
+  showEndGame = () => {
+      return (
+        <div>
+            <h1>The winner is : 
+            {this.state.winner} 
+            with scores - 
+            {this.state.playerOne}:{this.state.playerOneScore}, 
+            {this.state.playerTwo}:{this.state.playerTwoScore}  
+            </h1>
+            <button onClick={this.restartGame}> Restart </button>
+        </div>
+      );
   }
 
   timer = () => {
-      this.setState({timer: this.state.timer-1})
+      this.setState({timer: this.state.timer-1, timerEndGame: this.state.timerEndGame-1})
+      if (this.state.timerEndGame === 0) {
+          this.gameOver();
+      }
       if (this.state.timer === 0) {
-          this.setState({timer: 30});
-          this.setState({playerTurn: (this.state.playerTurn !== this.state.playerOne ? this.state.playerOne : this.state.playerTwo)});
+          this.setState({
+              timer: secondsPerTurn,
+              playerTurn: (this.state.playerTurn !== this.state.playerOne ? this.state.playerOne : this.state.playerTwo)
+        });
+         
       }
   }
   
@@ -51,7 +98,7 @@ class PalyGame extends Component {
         this.state.playerTwoWords.push(word)
         this.setState({playerTwoScore: ++this.state.playerTwoScore})
     }
-    this.setState({timer: 30});
+    this.setState({timer: secondsPerTurn});
   }
 
   submitWord = (event) => { 
@@ -121,6 +168,7 @@ class PalyGame extends Component {
                             <input type="submit" value="SEND" />
                         </form>
                      <h1>Timer: {this.state.timer}</h1>
+                     <h1 style={styleRed}>Timer till the game ends : {this.state.timerEndGame} </h1>
             </div>
             );
   }
@@ -134,7 +182,7 @@ class PalyGame extends Component {
   }
 
   render() {
-    return ( (this.state.gameFinished === false) ?this.showGame() :this.showRestartMenu() )
+    return ( (this.state.gameFinished === false) ?this.showGame() :this.showEndGame() )
 
   };
 }
