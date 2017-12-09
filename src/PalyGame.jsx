@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PlayerWords from './PlayerWords';
 
 const secondsPerTurn = 30;
 const secondsPerGame = 60;
@@ -121,30 +122,7 @@ class PalyGame extends Component {
     }
   }
 
-  showWordsPlayerOne = () => {
-    if (this.state.playerOneWords.length > 0) {
-        return (   
-                <div>
-                    <h1>Players {this.state.playerOne} words</h1>
-                    {this.state.playerOneWords.map((task, i)=>  
-                        <h1 key={i}>{this.state.playerOneWords[i]}</h1>  
-                    )}
-                </div>);
-    }
-  }
-
-
-  showWordsPlayerTwo = () => {
-    if (this.state.playerTwoWords.length > 0) {
-        return (   
-                <div>
-                    <h1>Player {this.state.playerTwo} words</h1>
-                    {this.state.playerTwoWords.map((task, i)=>  
-                        <h1 key={i}>{this.state.playerTwoWords[i]}</h1>  
-                    )}
-                </div>);
-    }
-  }
+ 
 
   showEndGame = () => {
     return (
@@ -163,8 +141,9 @@ class PalyGame extends Component {
   showGame = () => {
       return  (
              <div>
-                {this.showWordsPlayerOne()}
-                {this.showWordsPlayerTwo()}
+                 <PlayerWords playerName={this.state.playerOne} playerWords={this.state.playerOneWords}/>
+                 <PlayerWords playerName={this.state.playerTwo} playerWords={this.state.playerTwoWords}/>
+
                     <h1>{this.state.playerOne} Score : {this.state.playerOneScore} - {this.state.playerTwo} Score: {this.state.playerTwoScore}</h1>  
                     <h1>Players Turn:{this.state.playerTurn}</h1>
                         <form onSubmit={this.submitWord} >
